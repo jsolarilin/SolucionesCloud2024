@@ -1,0 +1,48 @@
+---
+#Se declara el deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-ecommerce
+  namespace: php-ecommerce-namespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php-ecommerce-label
+  template:
+    metadata:
+      labels:
+        app: php-ecommerce-label
+    spec:
+      containers:
+      - name: php-ecommerce
+        image: juanmar26/obligatorio-soluciones-cloud
+        volumeMounts:
+        - name: ecommerce-config-volume
+          mountPath: /var/www/html/config.php
+          subPath: config.php
+        env: 
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ecommerce-php-secret
+              key: DB_PASSWORD
+      volumes:
+      - name: ecommerce-config-volume
+        configMap:
+          name: temp-ecommerce-php-config
+---
+#Se expone el service
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-ecommerce-service
+  namespace: php-ecommerce-namespace
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: php-ecommerce-label

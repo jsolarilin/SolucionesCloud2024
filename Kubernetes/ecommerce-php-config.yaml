@@ -1,0 +1,17 @@
+apiVersion: v1
+data: 
+  config.php: |-
+    <?php
+        ini_set('display_errors', 1);
+        error_reporting(-1);
+        define('DB_HOST', 'terraform-20240623023508885300000001.c5cmeckskys4.us-east-1.rds.amazonaws.com');
+        define('DB_USER', 'admin');
+        define('DB_PASSWORD', 'UGFzc3dvcmQwMS4=');
+        define('DB_DATABASE', 'obligatorio_db');
+        
+    ?>
+kind: ConfigMap
+metadata:
+    creationTimestamp: null
+    name: ecommerce-php-config
+

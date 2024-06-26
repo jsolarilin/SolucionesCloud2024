@@ -1,0 +1,5 @@
+#Se declara el espacio de nombres
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: php-ecommerce-namespace
