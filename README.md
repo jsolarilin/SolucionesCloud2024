@@ -69,16 +69,18 @@ Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS a
 ### Recursos desplegados - Terraform
 
 1- **VPC**
-  1.1 - 2 PUBLIC SUBNETS
-  1.2 - 1 INTERNET GATEWAY
-  1.3 - 2 SECURITY GROUPS
-  1.4 - 1 ROUTE TABLE
+1.1 - 2 PUBLIC SUBNETS
+1.2 - 1 INTERNET GATEWAY
+1.3 - 2 SECURITY GROUPS
+1.4 - 1 ROUTE TABLE
+
 2- **RDS**
-  2.1 - 1 DATABASE ENGINE
-  2.2 - 1 DATABASE INSTANCE
+2.1 - 1 DATABASE ENGINE
+2.2 - 1 DATABASE INSTANCE
+
 3- **EKS**
-  3.1 - 1 CLUSTER EKS
-  3.2 - 1 EKS GROUP NODE
+3.1 - 1 CLUSTER EKS
+3.2 - 1 EKS GROUP NODE
 
 ### YAML - Kubernetes
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/1_IesAKYMAOqBQvMLba801rg.png)
