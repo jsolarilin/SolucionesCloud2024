@@ -74,24 +74,24 @@ Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS a
   - 1.3 - 2 SECURITY GROUPS
   - 1.4 - 1 ROUTE TABLE
 
-2- **RDS**
-2.1 - 1 DATABASE ENGINE
-2.2 - 1 DATABASE INSTANCE
+- 2- **RDS**
+  - 2.1 - 1 DATABASE ENGINE
+  - 2.2 - 1 DATABASE INSTANCE
 
-3- **EKS**
-3.1 - 1 CLUSTER EKS
-3.2 - 1 EKS GROUP NODE
+- 3- **EKS**
+  - 3.1 - 1 CLUSTER EKS
+  - 3.2 - 1 EKS GROUP NODE
 
 ### YAML - Kubernetes
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/1_IesAKYMAOqBQvMLba801rg.png)
 
 ### Recursos desplegados - Manifiesto YAML Kubernetes.
 
-  3.3 - 1 NAMESPACE
-  3.4 - 1 CONFIGMAP
-  3.5 - 1 SERVICE
-  3.3 - 1 CLASSIC LOAD BALANCER
-  3.4 - 1 AUTO SCALING GROUP
+  - 3.3 - 1 NAMESPACE
+  - 3.4 - 1 CONFIGMAP
+  - 3.5 - 1 SERVICE
+  - 3.3 - 1 CLASSIC LOAD BALANCER
+  - 3.4 - 1 AUTO SCALING GROUP
 
 ## Arquitectura desplegada
 
@@ -115,11 +115,11 @@ Finalidad: Lograr clonar el repositorio a sus equipos.
 2- **AWS cli**
 Finalidad: Lograr conectarse con su cuenta de AWS de manera remota.
 
-3- **Terraform**
+- 3- **Terraform**
 Finalidad:
-  a. Inicializar el repositorio.
-  b. Ejecutar el plan sin impactar.
-  c. Aplicar el repositorio para desplegar recursos.
+  - a. Inicializar el repositorio.
+  - b. Ejecutar el plan sin impactar.
+  - c. Aplicar el repositorio para desplegar recursos.
 
 4- **Kubectl**
 Finalidad: Lograr ejecutar comandos de Kubernetes para realizar deployment de aplicación.
