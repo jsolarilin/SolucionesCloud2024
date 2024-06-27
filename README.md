@@ -11,10 +11,32 @@ Las tecnologías que se llevan a cabo son Terraform, Bash Scripting y manifiesto
 ### Bash Scripting
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/BashImage.jpg)
 
+Se utiliza bash scripting para desplegar un conjunto de sentencias dentro de un mismo bloque de código.
+Dentro de estas sentencias encontramos la sentencia donde actualizamos kubectl con el cluster creado.
+
+Posteriormente se consultan las variables de ouput que arrojó el despliegue de terraform, estos datos son enviadoss a un archivo json el cual utilizaremos para crear el configmap necesario
+para realizar el deployment de eks.
+Dentro de esta misma lógica, ya que tenemos variables de output que no solo pertenecen a la información de la base de datos se realiza un filtrado de ese archivo creado .json para 
+encontrar solo las variables que estén directamente relacionadas con RDS.
+
+Dentro del bloque de código comprendido entre las líneas 25 y 41 tenemos la creación del configmap que nos servirá para establecer la conexión a la base de datos.
+Este configmap es necesario para hacer referencia en el manifiesto del deployment.yaml y así tomar los valores correctos para la conexión hacia el endpoint de RDS.
+
+Por último en el bloque de código entre las líneas 56-62 realizamos de manera automatica la ejecución del dump de la base de datos.
+Logramos realizar esto mediante la creación del deployment y en consecuencia la ejecución de los pods.
+Una vez creados los pods nos conectamos remoto a uno de ellos gracias a la previa consulta y asignación del nombre del pod en una varible que utilizamos para referenciar la conexión.
+Posteriormente realizamos el dump de la base de datos con la sentencia "mysql -h $rds_endpoint -P 3306 -u $rds_username -p${rds_password} obligatorio_db < /var/www/html/dump.sql"
+
 También se utilizaron tecnologías de Docker para crear una imagen con todos los componentes necesarios pre instalados y de esta manera tener el ambiente de producción configurado.
 
 ### DockerHub
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/dockerhub.png)
+
+Con esta tecnología implementada en nuestro proyecto logramos realizar la configuración del ambiente necesario para los pods ejecutados en el deployment de kubernetes.
+En dicha imagen configuramos la instalación de el sistema operativo base CentOS 7, PHP, MySQL 5.7 y Apache(httpd).
+
+Además cargamos el repositorio de la aplicación en el directorio /var/www/html brindada en este curso para tenerla disponible una vez se cree el pod.
+El nombre de la imagen se puede encontrar en el path: "Kubernetes/deployment.yaml" yendo al apartado de containers en el manifiesto de kubernetes.
 
 ### Terraform
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/TerraformImage.png)
@@ -23,6 +45,7 @@ Los servicios que se despliegan mediante Terraform apuntan a recursos de AWS (Am
 El código desarrollado via terraform está modularizado con la finalidad de tener mayor flexibilidad.
 
 Para cada recurso que se despliega se hizo un módulo con sus respectivas variables.
+
 ### Módulos creados
 
 1- **deploy-network** - Contiene el código necesario para realizar el despliegue de toda la arquitectura de networking.
@@ -37,7 +60,7 @@ este archivo: **vars-invocador.tfvars**
 
 ### Variables de Output
 
-Las variables de output son necesarias para lograr realizar el script en donde se envía información necesaria para el deployment de EKS.
+Las variables de output son necesarias para lograr realizar el script en donde se envía la información que es mandatoria para el deployment de EKS.
 Gracias a esta información que nos aparece en consola una vez finalizada la implementación del código de terraform es que logramos ejecutar
 el script de manera exitosa.
 
@@ -49,15 +72,15 @@ Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS a
 
 ### Recursos desplegados - Terraform
 
-1- VPC
+1- **VPC**
   1.1 - 2 PUBLIC SUBNETS
   1.2 - 1 INTERNET GATEWAY
   1.3 - 2 SECURITY GROUPS
   1.4 - 1 ROUTE TABLE
-2- RDS
+2- **RDS**
   2.1 - 1 DATABASE ENGINE
   2.2 - 1 DATABASE INSTANCE
-3- EKS
+3- **EKS**
   3.1 - 1 CLUSTER EKS
   3.2 - 1 EKS GROUP NODE
 
@@ -121,7 +144,7 @@ Allí deberán especificar la contraseña que deseen y esta será usada para aut
 
 **./deploy-app-kubernetes.sh**
 
-### Validación de aplicación web.
+## Validación de aplicación web.
 
 Para confirmar que se haya ejecutado correctamente el script y visualizar el deployment de kubernetes desplegado podemos ejecutar el siguiente comando:
 
