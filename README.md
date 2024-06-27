@@ -109,20 +109,20 @@ Estos diagramas están directamente relacionados con el resultado de la ejecuci�
 ## Ejecución de repositorio
 
 Para lograr ejecutar este repositorio deberán tener instalado en sus equipos:
-1- **Git**
-Finalidad: Lograr clonar el repositorio a sus equipos.
+- 1- **Git**
+  - Finalidad: Lograr clonar el repositorio a sus equipos.
 
-2- **AWS cli**
-Finalidad: Lograr conectarse con su cuenta de AWS de manera remota.
+- 2- **AWS cli**
+  - Finalidad: Lograr conectarse con su cuenta de AWS de manera remota.
 
 - 3- **Terraform**
-Finalidad:
-  - a. Inicializar el repositorio.
-  - b. Ejecutar el plan sin impactar.
-  - c. Aplicar el repositorio para desplegar recursos.
+  - Finalidad:
+    - a. Inicializar el repositorio.
+    - b. Ejecutar el plan sin impactar.
+    - c. Aplicar el repositorio para desplegar recursos.
 
-4- **Kubectl**
-Finalidad: Lograr ejecutar comandos de Kubernetes para realizar deployment de aplicación.
+- 4- **Kubectl**
+  - Finalidad: Lograr ejecutar comandos de Kubernetes para realizar deployment de aplicación.
 
 ## Procedimiento para impactar repositorio
 
