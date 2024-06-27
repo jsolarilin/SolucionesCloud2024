@@ -95,7 +95,7 @@ Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS a
 
 ## Arquitectura desplegada
 
-A continuación se aprecia la arquitectura desplegada mediante un diagrama general y uno relacioando a la implementación de EKS y RDS.
+A continuación se aprecia la arquitectura desplegada mediante un diagrama general.
 Estos diagramas están directamente relacionados con el resultado de la ejecución de este repositorio.
 
 ### Diagrama de arquitectura php-ecommerce
@@ -142,6 +142,8 @@ Una vez tengamos todos los requerimientos mencionados ya instalados en nuestro e
 
 Luego de este punto se les pedirá en la terminal que ingresen el password de la base de datos a crear.
 Allí deberán especificar la contraseña que deseen y esta será usada para autenticar contra la database instance.
+Con esta práctica evitamos colocar la passsword a fuego en el código y este dato al momento de desplegarse en la consola gracias a la variable
+de output declarada se trata como sensitive, de este modo evitamos mostrar este dato confidencial en pantalla aumentando la seguridad.
 
 **./deploy-app-kubernetes.sh**
 
@@ -152,8 +154,8 @@ Para confirmar que se haya ejecutado correctamente el script y visualizar el dep
 **kubectl get deployment -n php-ecommerce-namespace php-ecommerce**
 
 Si todo funcionó sin errores ya es hora de dirigirnos a nuestra consola de AWS.
-Tendremos que navegar hasta la pestaña EC2 > Load Balancer y ejecutar la URL que nos proporciona.
-Allí veremos la aplicación desplegada y podremos verificar la conexión con la base de datos yendo al apartado "Login" > "Registrarme".
+Tendremos que navegar hasta la pestaña *EC2 > Load Balancer* y ejecutar la URL que nos proporciona.
+Allí veremos la aplicación desplegada y podremos verificar la conexión con la base de datos yendo al apartado *"Login" > "Registrarme"*.
 
 Una vez registrados podremos acceder y con las credenciales digitadas previamente.
 
@@ -163,7 +165,7 @@ Para contemplar la alta disponibilidad podriamos tener la base de datos RDS con 
 
 Para contemplar la eficiencia del sevicio aumentando la velocidad de respuesta hacia consultas a la aplicación. 
 Podriamos implementar el servicio de Elasti Cache para REDIS.
-Con este servicio tendremos informacion hit la cual nos permite almacenar datos en memoria para no tener que consultar en el motor de la base de datos cada consulta realizada.
+Con este servicio tendremos informacion hit la cual nos permite almacenar datos en memoria para no tener que consultar en el motor de la base de datos cada dato o información solicitada.
 
 Por último para mejorar la seguridad, deberíamos tener al menos 2 subnets privadas.
 La primer subnet privada debería alojar a las bases de de datos RDS.
@@ -172,11 +174,10 @@ La segunda subnet privada debería alojar el cluster de EKS.
 Para lograr conectividad entre estos servicios tendriamos que crear un NAT Gateway para que permita el tráfico saliente de dichos servicios.
 De esta manera solo se deja el Classic Load Balancer en la subnet pública.
 
-### Posible diagrama de arquitectura EKS
+### Posible diagrama de arquitectura EKS - Aumentando seguridad
 
-//Imagen mejorada 1
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/arquitecturamejorada1.png)
 
-#### Posible diagrama de arquitectura RDS
+#### Posible diagrama de arquitectura RDS - Aumentando disponibilidad
 
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/arquitecturamejorada2RDS.png)
