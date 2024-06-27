@@ -43,7 +43,7 @@ el script de manera exitosa.
 
 
 ### YAML - Kubernetes
-![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/TerraformImage.png)
+![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/1_IesAKYMAOqBQvMLba801rg.png)
 
 Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS apuntan a recursos de EKS y AWS, también se detallan a continuación.
 
