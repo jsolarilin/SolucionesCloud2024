@@ -157,22 +157,23 @@ Si todo funcionó sin errores ya es hora de dirigirnos a nuestra consola de AWS.
 Tendremos que navegar hasta la pestaña *EC2 > Load Balancer* y ejecutar la URL que nos proporciona.
 Allí veremos la aplicación desplegada y podremos verificar la conexión con la base de datos yendo al apartado *"Login" > "Registrarme"*.
 
-Una vez registrados podremos acceder y con las credenciales digitadas previamente.
+Una vez registrados podremos acceder con las credenciales digitadas previamente.
 
-Existen aspectos de arquitectura que se deben mejorar si se requiere alta disponibilidad de la aplicación, aumentar eficiencia en el servicio y mejora de seguridad.
+## Aspectos a mejorar - Alta disponibilidad, Eficiencia, Seguridad
 
-Para contemplar la alta disponibilidad podriamos tener la base de datos RDS con modalidad de escritura en una AZ y una copia de esta base de datos con modalidad de solo lectura en una AZ diferente.
+Existen aspectos de arquitectura que se deben mejorar si se requiere alta disponibilidad, aumentar eficiencia en el servicio y/o mejorar la seguridad.
 
-Para contemplar la eficiencia del sevicio aumentando la velocidad de respuesta hacia consultas a la aplicación. 
-Podriamos implementar el servicio de Elasti Cache para REDIS.
-Con este servicio tendremos informacion hit la cual nos permite almacenar datos en memoria para no tener que consultar en el motor de la base de datos cada dato o información solicitada.
+Para contemplar la **alta disponibilidad** podriamos tener la base de datos RDS con modalidad de escritura en una AZ y una copia de esta base de datos con modalidad de solo lectura en una AZ diferente.
 
-Por último para mejorar la seguridad, deberíamos tener al menos 2 subnets privadas.
-La primer subnet privada debería alojar a las bases de de datos RDS.
-La segunda subnet privada debería alojar el cluster de EKS.
+Para contemplar la **eficiencia** del sevicio aumentando la velocidad de respuesta hacia consultas a la aplicación, podriamos implementar el servicio de *Elasti Cache para REDIS*.
+Con este servicio tendremos informacion hit la cual nos permite almacenar datos en memoria para no tener que consultar en el motor de la base de datos RDS cada petición solicitada.
+
+Por último para mejorar la **seguridad** deberíamos tener al menos 2 subnets privadas.
+- La primer subnet privada debería alojar a las bases de de datos RDS.
+- La segunda subnet privada debería alojar el cluster de EKS.
 
 Para lograr conectividad entre estos servicios tendriamos que crear un NAT Gateway para que permita el tráfico saliente de dichos servicios.
-De esta manera solo se deja el Classic Load Balancer en la subnet pública.
+De esta manera solo se deja el Classic Load Balancer generado por el service de EKS en la subnet pública.
 
 ### Posible diagrama de arquitectura EKS - Aumentando seguridad
 
