@@ -5,8 +5,8 @@ Repositorio para PHP Ecommerce
 
 En este repositorio encontraremos la solución llevada a cabo por el equipo de Juan Ignacio Solari y Juan Manuel Ruiz para desplegar la aplicación php-ecommerce desarrollada en lenguaje PHP y conectada a una base de datos MySQL.
 
-El despliegue de la infraestructura es completamente mediante IaC (Infraestructure As Code).
-Las tecnologías que se llevan a cabo son Terraform, Bash Scripting y manifiestos de YAML para impactar los servicios del cluster de EKS (Elastic Kubernetes Services).
+El despliegue de la infraestructura es completamente mediante IaC (Infrastructure As Code).
+Las tecnologías que se utilizan para llevar a cabo la solución son: Terraform, Bash Scripting y manifiestos de YAML para impactar los servicios del cluster de EKS (Elastic Kubernetes Services).
 
 ### Bash Scripting
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/BashImage.jpg)
@@ -14,7 +14,7 @@ Las tecnologías que se llevan a cabo son Terraform, Bash Scripting y manifiesto
 Se utiliza bash scripting para desplegar un conjunto de sentencias dentro de un mismo bloque de código.
 Dentro de estas sentencias encontramos la sentencia donde actualizamos kubectl con el cluster creado.
 
-Posteriormente se consultan las variables de ouput que arrojó el despliegue de terraform, estos datos son enviadoss a un archivo json el cual utilizaremos para crear el configmap necesario
+Posteriormente, se consultan las variables de ouput que arrojó el despliegue de terraform, estos datos son enviadoss a un archivo json el cual utilizaremos para crear el configmap necesario
 para realizar el deployment de eks.
 Dentro de esta misma lógica, ya que tenemos variables de output que no solo pertenecen a la información de la base de datos se realiza un filtrado de ese archivo creado .json para 
 encontrar solo las variables que estén directamente relacionadas con RDS.
@@ -24,7 +24,7 @@ Este configmap es necesario para hacer referencia en el manifiesto del deploymen
 
 Por último en el bloque de código entre las líneas 56-62 realizamos de manera automatica la ejecución del dump de la base de datos.
 Logramos realizar esto mediante la creación del deployment y en consecuencia la ejecución de los pods.
-Una vez creados los pods nos conectamos remoto a uno de ellos gracias a la previa consulta y asignación del nombre del pod en una varible que utilizamos para referenciar la conexión.
+Una vez creados los pods, nos conectamos remoto a uno de ellos gracias a la previa consulta y asignación del nombre del pod en una varible que utilizamos para referenciar la conexión.
 Posteriormente realizamos el dump de la base de datos con la sentencia "mysql -h $rds_endpoint -P 3306 -u $rds_username -p${rds_password} obligatorio_db < /var/www/html/dump.sql"
 
 También se utilizaron tecnologías de Docker para crear una imagen con todos los componentes necesarios pre instalados y de esta manera tener el ambiente de producción configurado.
@@ -33,9 +33,9 @@ También se utilizaron tecnologías de Docker para crear una imagen con todos lo
 ![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/dockerhub.png)
 
 Con esta tecnología implementada en nuestro proyecto logramos realizar la configuración del ambiente necesario para los pods ejecutados en el deployment de kubernetes.
-En dicha imagen configuramos la instalación de el sistema operativo base CentOS 7, PHP, MySQL 5.7 y Apache(httpd).
+En dicha imagen, configuramos la instalación de el sistema operativo base CentOS 7, PHP, MySQL 5.7 y Apache(httpd).
 
-Además cargamos el repositorio de la aplicación en el directorio /var/www/html brindada en este curso para tenerla disponible una vez se cree el pod.
+Además, cargamos el repositorio de la aplicación en el directorio /var/www/html brindada en este curso para tenerla disponible una vez se cree el pod.
 El nombre de la imagen se puede encontrar en el path: "Kubernetes/deployment.yaml" yendo al apartado de containers en el manifiesto de kubernetes.
 
 ### Terraform
@@ -44,19 +44,18 @@ El nombre de la imagen se puede encontrar en el path: "Kubernetes/deployment.yam
 Los servicios que se despliegan mediante Terraform apuntan a recursos de AWS (Amazon Web Services) y se detallan a continuación.
 El código desarrollado via terraform está modularizado con la finalidad de tener mayor flexibilidad.
 
-Para cada recurso que se despliega se hizo un módulo con sus respectivas variables.
+Para cada recurso que se despliega, se hizo un módulo con sus respectivas variables.
 
 ### Módulos creados
 
 1- **deploy-network** - Contiene el código necesario para realizar el despliegue de toda la arquitectura de networking.
 
-2- **deploy-rds** - Contiene las sentencias necesarias para ejecutar la creación del recurso RDS con la del motor de base de datos MySQL.
+2- **deploy-rds** - Contiene las sentencias necesarias para ejecutar la creación del recurso RDS con el motor de base de datos MySQL.
 
-3- **deploy-eks** - En este módulo se crean los recursos de el cluster de EKS y el grupo de nodos.
+3- **deploy-eks** - En este módulo se crean los recursos del cluster de EKS y el grupo de nodos.
 
 Fuera de los módulos tenemos un archivo **invocador.tf** donde se invocan a estos últimos.
-Para esto es necesaria la declaración de las variables fuera de los módudlos y su asignación correspondiente que la encontraremos en 
-este archivo: **vars-invocador.tfvars**
+Para esto, es necesaria la declaración de las variables fuera de los módulos y su asignación correspondiente que se encuentra en el archivo: **vars-invocador.tfvars**
 
 ### Variables de Output
 
@@ -142,7 +141,7 @@ Una vez tengamos todos los requerimientos mencionados ya instalados en nuestro e
 
 Luego de este punto se les pedirá en la terminal que ingresen el password de la base de datos a crear.
 Allí deberán especificar la contraseña que deseen y esta será usada para autenticar contra la database instance.
-Con esta práctica evitamos colocar la passsword a fuego en el código y este dato al momento de desplegarse en la consola gracias a la variable
+Con esta práctica evitamos colocar la password en texto plano en el código. Al momento de desplegarse en la consola, gracias a la variable
 de output declarada se trata como sensitive, de este modo evitamos mostrar este dato confidencial en pantalla aumentando la seguridad.
 
 **./deploy-app-kubernetes.sh**
@@ -153,7 +152,7 @@ Para confirmar que se haya ejecutado correctamente el script y visualizar el dep
 
 **kubectl get deployment -n php-ecommerce-namespace php-ecommerce**
 
-Si todo funcionó sin errores ya es hora de dirigirnos a nuestra consola de AWS.
+Si todo funcionó sin errores, ya es hora de dirigirnos a nuestra consola de AWS.
 Tendremos que navegar hasta la pestaña *EC2 > Load Balancer* y ejecutar la URL que nos proporciona.
 Allí veremos la aplicación desplegada y podremos verificar la conexión con la base de datos yendo al apartado *"Login" > "Registrarme"*.
 
