@@ -50,12 +50,12 @@ Para cada recurso que se despliega se hizo un módulo con sus respectivas variab
 
 1- **deploy-network** - Contiene el código necesario para realizar el despliegue de toda la arquitectura de networking.
 
-2- **deploy-rds** - Contiene las sentencias necesarias para ejecutar la creación del recurso RDS con la el motor de base de datos MySQL.
+2- **deploy-rds** - Contiene las sentencias necesarias para ejecutar la creación del recurso RDS con la del motor de base de datos MySQL.
 
 3- **deploy-eks** - En este módulo se crean los recursos de el cluster de EKS y el grupo de nodos.
 
 Fuera de los módulos tenemos un archivo **invocador.tf** donde se invocan a estos últimos.
-Para esto es necesaria la declaración de las variables fuera de los móudlos y su asignación correspondiente que la encontraremos en 
+Para esto es necesaria la declaración de las variables fuera de los módudlos y su asignación correspondiente que la encontraremos en 
 este archivo: **vars-invocador.tfvars**
 
 ### Variables de Output
@@ -63,10 +63,6 @@ este archivo: **vars-invocador.tfvars**
 Las variables de output son necesarias para lograr realizar el script en donde se envía la información que es mandatoria para el deployment de EKS.
 Gracias a esta información que nos aparece en consola una vez finalizada la implementación del código de terraform es que logramos ejecutar
 el script de manera exitosa.
-
-
-### YAML - Kubernetes
-![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/1_IesAKYMAOqBQvMLba801rg.png)
 
 Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS apuntan a recursos de EKS y AWS, también se detallan a continuación.
 
@@ -83,6 +79,9 @@ Los servicios que se despliegan mediante manifiesto de YAML - Kubernetes - EKS a
 3- **EKS**
   3.1 - 1 CLUSTER EKS
   3.2 - 1 EKS GROUP NODE
+
+### YAML - Kubernetes
+![logo](https://github.com/jsolarilin/SolucionesCloud2024/blob/main/ImagesReadme/1_IesAKYMAOqBQvMLba801rg.png)
 
 ### Recursos desplegados - Manifiesto YAML Kubernetes.
 
